@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferretería Emmanuel - Inicio</title>
+  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <h1>Ferretería Emmanuel</h1>
+    <nav>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="herramientas.html">Productos</a>
+        <a href="#sobre-nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </nav>
+    <div class="auth-buttons">
+      <a href="login.html" class="btn-auth btn-login">Iniciar Sesión</a>
+      <a href="register.html" class="btn-auth btn-register">Registrarse</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner completo -->
+<section class="hero-banner">
+  <div class="hero-overlay">
+    <h2>¡Bienvenido a Ferretería Emmanuel!</h2>
+    <p>Todo lo que necesitas en herramientas y materiales de construcción</p>
+    <a href="herramientas.html" class="btn-hero">Ver productos</a>
+  </div>
+</section>
+
+
+  <!-- Sección de ventajas -->
+  <section class="ventajas">
+    <h2>¿Por qué elegirnos?</h2>
+    <div class="ventaja-lista">
+      <div class="ventaja">🔧 Variedad de productos</div>
+      <div class="ventaja">🚚 Entrega rápida en toda la ciudad</div>
+      <div class="ventaja">💬 Atención personalizada por WhatsApp</div>
+    </div>
+  </section>
+
+  <!-- Quiénes somos (ahora arriba del contacto) -->
+  <section id="sobre-nosotros" class="quienes-somos">
+    <h2><i class="fa-solid fa-location-dot"></i> ¿Quiénes somos?</h2>
+    <p>
+      Ferretería Emmanuel es una empresa local que ofrece materiales y herramientas de construcción de alta calidad al mejor precio. 
+      Nos esforzamos por brindar un servicio cercano, confiable y rápido a nuestros clientes.
+    </p>
+    <img src="imagenes/ubicacion.png" alt="Local de la ferretería" class="img-local">
+    <br>
+    <a href="https://maps.app.goo.gl/17X46qht53o59eg67" target="_blank" class="btn-ubicacion">
+      <i class="fa-solid fa-location-dot"></i> UBICACIÓN
+    </a>
+  </section>
+
+<!-- Sección contacto -->
+<section id="contacto">
+  <h2>Contáctanos</h2>
+  <p>¿Tienes alguna pregunta? Escríbenos directamente por WhatsApp:</p>
+  
+  <!-- Botón simple para consultas -->
+  <a href="https://wa.me/59163468148" target="_blank" class="boton-whatsapp" id="btn-consulta">
+    <i class="fab fa-whatsapp"></i> Chatear por WhatsApp
+  </a>
+  
+  <!-- Botón para enviar pedido (se muestra solo si hay productos) -->
+  <a href="#" class="boton-whatsapp" id="btn-pedido-index" style="display:none; margin-top: 10px;">
+    <i class="fab fa-whatsapp"></i> Enviar mi Pedido por WhatsApp
+  </a>
+</section>
+
+  <footer>
+    <p>&copy; 2025 Ferretería Emmanuel - Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+  // Función para actualizar el botón de WhatsApp en la página de inicio
+  function actualizarBotonWhatsAppIndex() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const btnConsulta = document.getElementById('btn-consulta');
+    const btnPedido = document.getElementById('btn-pedido-index');
+    
+    if (carrito.length > 0) {
+      // Hay productos, mostrar botón de pedido
+      btnConsulta.style.display = 'none';
+      btnPedido.style.display = 'inline-block';
+      
+      // Construir mensaje igual que en script.js
+      let mensaje = "¡Hola! Quiero hacer un pedido:%0A%0A";
+      let total = 0;
+      
+      carrito.forEach(item => {
+        let subtotal = item.precio * item.cantidad;
+        mensaje += `- ${item.nombre} x${item.cantidad}: ${subtotal} Bs%0A`;
+        total += subtotal;
+      });
+      
+      mensaje += `%0ATotal: ${total} Bs%0A%0A¡Gracias!`;
+      
+      // Actualizar el enlace
+      btnPedido.href = `https://wa.me/59163468148?text=${mensaje}`;
+    } else {
+      // No hay productos, mostrar botón de consulta normal
+      btnConsulta.style.display = 'inline-block';
+      btnPedido.style.display = 'none';
+    }
+  }
+  
+  // Ejecutar al cargar la página
+  window.addEventListener('load', actualizarBotonWhatsAppIndex);
+</script>
+</body>
+</html>
